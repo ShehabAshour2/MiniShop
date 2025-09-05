@@ -11,12 +11,13 @@ private:
     double weight;
 
 public:
+
     PhysicalProduct(const string &t, const string &d, double p, const string &c, int stock, double w);
 
     bool reduceStock(int qty);
     void increaseStock(int qty);
 
-    void display(ostream &os) const override;
+    void display() const override;
     string getType() const override;
 
 };

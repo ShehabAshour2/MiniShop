@@ -16,7 +16,7 @@ protected:
 public:
     Product(const string &t, const string &d, double p, const string &c);
 
-    virtual void display(ostream &os) const = 0;
+    virtual void display() const = 0;
     virtual string getType() const = 0;
     double priceafterdiscount() const;
 

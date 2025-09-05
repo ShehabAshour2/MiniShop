@@ -1,5 +1,6 @@
 #include "PhysicalProduct.h"
 
+
 PhysicalProduct::PhysicalProduct(const string &t, const string &d, double p, const string &c, int stock, double w)
     : Product(t, d, p, c), stockQuantity(stock), weight(w) {}
 
@@ -18,9 +19,9 @@ void PhysicalProduct::increaseStock(int qty)
     stockQuantity += qty;
 }
 
-void PhysicalProduct::display(ostream &os) const
+void PhysicalProduct::display() const
 {
-    os << "[ID: " << id << "] " << title
+    cout << "[ID: " << id << "] " << title
        << " | category: " << category
        << " | Price: " << price
        << " | After Discount: " << priceafterdiscount()

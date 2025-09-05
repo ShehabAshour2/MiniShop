@@ -7,16 +7,16 @@
 #include <vector>
 #include <conio.h>
 
-#include "User.h"
-#include "Admin.h"
-#include "Customer.h"
-#include "Product.h"
-#include "PhysicalProduct.h"
-#include "DigitalProduct.h"
-#include "ShoppingCart.h"
-#include "CartItem.h"
-#include "Order.h"
-#include "Inventory.h"
+#include "User.cpp"
+#include "Admin.cpp"
+#include "Customer.cpp"
+#include "Product.cpp"
+#include "PhysicalProduct.cpp"
+#include "DigitalProduct.cpp"
+#include "ShoppingCart.cpp"
+#include "CartItem.cpp"
+#include "Order.cpp"
+#include "Inventory.cpp"
 #include <numeric>
 
 using namespace std;

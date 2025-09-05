@@ -1,12 +1,13 @@
 #include "DigitalProduct.h"
 #include <vector>
 
+
 DigitalProduct::DigitalProduct(const string &t, const string &d, double p, const string &c, double size, const string &f)
     : Product(t, d, p, c), fileSizeMB(size), format(f) {}
 
-void DigitalProduct::display(ostream &os) const
+void DigitalProduct::display() const
 {
-    os << "[ID: " << id << "] " << title
+    cout << "[ID: " << id << "] " << title
        << " | " << category
        << " | Price: " << price
        << " | After Discount: " << priceafterdiscount()

@@ -14,7 +14,7 @@ private:
 public:
     DigitalProduct(const string &t, const string &d, double p, const string &c, double size, const string &f);
 
-    void display(ostream &os) const override;
+    void display() const override;
     string getType() const override;
 };
 #endif

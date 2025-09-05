@@ -1,6 +1,8 @@
 #include "Product.h"
 #include <iostream>
 
+
+
 int Product::nextId = 1;
 double Product::globalDiscount = 0.0;
 
@@ -17,6 +19,6 @@ double Product::priceafterdiscount() const
 
 ostream &operator<<(ostream &os, const Product &p)
 {
-    p.display(os);
+    p.display();
     return os;
 }

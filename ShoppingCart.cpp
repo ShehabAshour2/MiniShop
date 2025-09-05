@@ -21,7 +21,7 @@ void ShoppingCart::removeItem(int id)
 {
     for (int i = 0; i < cartItems.size(); i++)
     {
-        if (cartItems[i].product && cartItems[i].product->id == id)
+        if (cartItems[i].product && cartItems[i].product->getId() == id)
         {
             cartItems.erase(cartItems.begin() + i);
             break;
@@ -33,7 +33,7 @@ void ShoppingCart::updateQuantity(int id, int quantity)
 {
     for (auto &item : cartItems)
     {
-        if (item.product && item.product->id == id)
+        if (item.product && item.product->getId() == id)
         {
             item.quantity = quantity;
         }
@@ -69,7 +69,7 @@ ostream &operator<<(ostream &os, const ShoppingCart &cart)
     for (const auto &item : cart.cartItems)
     {
         if (item.product)
-            os << item.product->name << " x" << item.quantity << " = " << item.subTotal() << endl;
+            os << item.product->getTitle() << " x" << item.quantity << " = " << item.subTotal() << endl;
     }
     os << "Total: " << cart.calculateTotal() << endl;
     return os;
