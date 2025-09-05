@@ -1,6 +1,10 @@
 #include "PhysicalProduct.h"
 
+PhysicalProduct::PhysicalProduct() : Product("", "", "", "") {
+    stockQuantity=-1;
+    weight=-1;
 
+}
 PhysicalProduct::PhysicalProduct(const string &t, const string &d, double p, const string &c, int stock, double w)
     : Product(t, d, p, c), stockQuantity(stock), weight(w) {}
 

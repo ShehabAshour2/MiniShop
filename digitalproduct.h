@@ -12,6 +12,7 @@ private:
     string format;
 
 public:
+    DigitalProduct();
     DigitalProduct(const string &t, const string &d, double p, const string &c, double size, const string &f);
 
     void display() const override;

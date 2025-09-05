@@ -1,6 +1,7 @@
 #include "DigitalProduct.h"
 #include <vector>
 
+DigitalProduct::DigitalProduct(){}
 
 DigitalProduct::DigitalProduct(const string &t, const string &d, double p, const string &c, double size, const string &f)
     : Product(t, d, p, c), fileSizeMB(size), format(f) {}

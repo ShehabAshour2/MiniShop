@@ -64,13 +64,13 @@ ShoppingCart ShoppingCart::operator+(const ShoppingCart &other) const
     return temp;
 }
 
-ostream &operator<<(ostream &os, const ShoppingCart &cart)
+void display(const ShoppingCart &cart)
 {
     for (const auto &item : cart.cartItems)
     {
         if (item.product)
-            os << item.product->getTitle() << " x" << item.quantity << " = " << item.subTotal() << endl;
+            cout << item.product->getTitle() << " x" << item.quantity << " = " << item.subTotal() << endl;
     }
-    os << "Total: " << cart.calculateTotal() << endl;
-    return os;
+    cout << "Total: " << cart.calculateTotal() << endl;
+
 }

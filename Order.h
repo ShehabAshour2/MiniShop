@@ -21,7 +21,7 @@ private:
 
 public:
     // Constructor
-    Order(int custId, ShoppingCart &items, const string &orderDate);
+    Order(int custId,const ShoppingCart &items, const string &orderDate);
 
     // Methods
     void updateStatus(const string &newStatus);

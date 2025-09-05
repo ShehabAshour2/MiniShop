@@ -19,7 +19,7 @@ public:
 
     int getQuantity() const { return quantity; }
     Product *getProduct() const { return product; }
-
+    ~CartItem();
     friend std::ostream &operator<<(std::ostream &os, const CartItem &item);
 };
 

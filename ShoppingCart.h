@@ -27,8 +27,9 @@ public:
     void updateQuantity(int id, int quantity);
     double calculateTotal() const;
     void sortByPrice();
+    vector<CartItem> getCartItems(){return cartItems;}
 
-    friend ostream &operator<<(ostream &os, const ShoppingCart &cart);
+    friend void display(const ShoppingCart &cart);
     ShoppingCart operator+(const ShoppingCart &other) const;
 };
 

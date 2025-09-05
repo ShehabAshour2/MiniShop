@@ -21,5 +21,5 @@ double CartItem::subTotal() const
 
 CartItem::~CartItem()
 {
-    product = NULL;
+    product = nullptr;
 }

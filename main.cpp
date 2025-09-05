@@ -258,7 +258,8 @@ void customerMenu(Customer *currentCustomer)
         {
             system("cls");
             cout << "--- Your Shopping Cart ---" << endl;
-            cout << customerCart << endl;
+            display(customerCart);
+            cout<< endl;
             cout << "Total: $" << customerCart.calculateTotal() << endl;
             cout << "\nPress Enter to continue...";
             cin.get();

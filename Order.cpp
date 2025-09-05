@@ -11,7 +11,7 @@ Order::Order(int custId, const ShoppingCart &items, const string &orderDate)
 {
     orderId = nextOrderId++;
     totalAmount = 0.0;
-    for (auto &item : purchasedItems)
+    for (auto &item : purchasedItems.getCartItems())
     {
         totalAmount += item.subTotal();
     }
@@ -22,10 +22,7 @@ void Order::updateStatus(const string &newStatus)
     status = newStatus;
 }
 
-ostream & ShoppingCart::operator<<(ostream &os, const ShoppingCart &sc) {
-    for (auto &item : sc.cartItems)os<<item<<" - ";
-    return os;
-}
+
 
 ostream &operator<<(ostream &os, const Order &o)
 {
@@ -36,7 +33,8 @@ ostream &operator<<(ostream &os, const Order &o)
        << "\nTotal: " << o.totalAmount
        << "\nItems:\n";
 
-    os << o.purchasedItems << endl;
+     display(o.purchasedItems);
+     cout << endl;
     return os;
 }
 

@@ -11,7 +11,7 @@ private:
     double weight;
 
 public:
-
+    PhysicalProduct();
     PhysicalProduct(const string &t, const string &d, double p, const string &c, int stock, double w);
 
     bool reduceStock(int qty);
