@@ -18,6 +18,6 @@ public:
 
     void display(ostream &os) const override;
     string getType() const override;
-    int getid
+
 };
 #endif

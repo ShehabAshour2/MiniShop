@@ -1,20 +1,7 @@
 #include "ShoppingCart.h"
-class Product
-{
-public:
-    int id;
-    string name;
-    double price;
+#include "product.h"
 
-    Product(int i, const string &n, double p) : id(i), name(n), price(p) {}
-};
 
-double CartItem::subTotal() const
-{
-    if (product)
-        return product->price * quantity;
-    return 0.0;
-}
 
 ShoppingCart::ShoppingCart(const ShoppingCart &other)
 {

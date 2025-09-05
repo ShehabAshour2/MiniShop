@@ -21,7 +21,7 @@ void PhysicalProduct::increaseStock(int qty)
 void PhysicalProduct::display(ostream &os) const
 {
     os << "[ID: " << id << "] " << title
-       << " | " << category
+       << " | category: " << category
        << " | Price: " << price
        << " | After Discount: " << priceafterdiscount()
        << " | Stock: " << stockQuantity

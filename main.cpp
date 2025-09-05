@@ -24,7 +24,7 @@ using namespace std;
 // Forward declarations of functions to handle menu actions
 void customerMenu(Customer *currentCustomer);
 void adminMenu(Admin *currentAdmin);
-
+void displayAllProducts();
 // In-memory databases
 vector<Admin> admins;
 vector<Customer> customers;
@@ -175,4 +175,143 @@ int main()
         }
     }
     return 0;
+}
+
+
+void displayAllProducts() {
+    system("cls");
+    cout<<"Physical items:"<<endl;
+    physicalInventory.display();
+    cout<<endl;
+    cout<<"digital items:"<<endl;
+    digitalInventory.display();
+    cout<<endl;
+}
+
+
+void customerMenu(Customer *currentCustomer)
+{
+    char choice;
+    ShoppingCart customerCart;
+
+    while (true)
+    {
+        system("cls"); // Clears the console
+        cout << "Welcome, " << currentCustomer->getname() << "!" << endl;
+        cout << "--- Customer Menu ---" << endl;
+        cout << "1. View all products" << endl;
+        cout << "2. Add product to cart" << endl;
+        cout << "3. View shopping cart" << endl;
+        cout << "4. Checkout" << endl;
+        cout << "5. View order history" << endl;
+        cout << "6. Log out" << endl;
+        cout << "Enter your choice: ";
+
+        while ((choice=getch()) && (choice<'1' || choice>'6') );
+        cout << choice << endl; // Echo the character pressed
+
+        switch (choice)
+        {
+        case '1':
+        {
+            system("cls");
+            displayAllProducts();
+            cout << "\nPress Enter to continue...";
+            cin.get();
+            break;
+        }
+        case '2':
+        {
+            system("cls");
+            int productId, quantity;
+            cout << "Enter product ID to add to cart: ";
+            cin >> productId;
+
+            cout << "Enter quantity: ";
+            cin >> quantity;
+
+
+            // Try to find the product in both inventories
+            PhysicalProduct *physicalProd = physicalInventory.findbyid(productId);
+            DigitalProduct *digitalProd = digitalInventory.findbyid(productId);
+
+            if (physicalProd != nullptr)
+            {
+                customerCart.addItem(physicalProd, quantity);
+                cout << "\nAdded " << quantity << " of " << physicalProd->getTitle() << " to cart." << endl;
+            }
+            else if (digitalProd != nullptr)
+            {
+                customerCart.addItem(digitalProd, quantity);
+                cout << "\nAdded " << quantity << " of " << digitalProd->getTitle() << " to cart." << endl;
+            }
+            else
+            {
+                cout << "\nProduct not found." << endl;
+            }
+
+            cout << "\nPress Enter to continue...";
+            cin.get();
+            break;
+        }
+        case '3':
+        {
+            system("cls");
+            cout << "--- Your Shopping Cart ---" << endl;
+            cout << customerCart << endl;
+            cout << "Total: $" << customerCart.calculateTotal() << endl;
+            cout << "\nPress Enter to continue...";
+            cin.get();
+            break;
+        }
+        case '4':
+        {
+            system("cls");
+            if (customerCart.calculateTotal() > 0)
+            {
+                // Create a new order
+                Order newOrder(currentCustomer->getId(), customerCart, "2025-09-05");
+                orders.push_back(newOrder);
+                cout << "Order placed successfully! " << endl;
+                cout << "You can view your invoice here: " << endl;
+                printInvoice(newOrder);
+
+                // Clear the shopping cart
+                ShoppingCart emptyCart;
+                customerCart = emptyCart;
+            }
+            else
+            {
+                cout << "Your cart is empty. Nothing to checkout." << endl;
+            }
+
+            cout << "\nPress Enter to continue...";
+            cin.get();
+            break;
+        }
+        case '5':
+        {
+            system("cls");
+            currentCustomer->vieworders();
+            cout << "\nPress Enter to continue...";
+            cin.get();
+            break;
+        }
+        case '6':
+        {
+            // Log out
+            cout << "\nLogging out. Goodbye!" << endl;
+            cout << "\nPress Enter to continue...";
+            cin.get();
+            return;
+        }
+        default:
+        {
+            cout << "\nInvalid choice. Please try again." << endl;
+            cout << "\nPress Enter to continue...";
+            cin.get();
+            break;
+        }
+        }
+    }
 }

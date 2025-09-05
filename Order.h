@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "CartItem.h"
+#include "ShoppingCart.h"
 using namespace std;
 
 class Order
@@ -16,11 +17,11 @@ private:
 
     static int nextOrderId;
 
-    vector<CartItem> purchasedItems;
+    ShoppingCart purchasedItems;
 
 public:
     // Constructor
-    Order(int custId, const vector<CartItem> &items, const string &orderDate);
+    Order(int custId, ShoppingCart &items, const string &orderDate);
 
     // Methods
     void updateStatus(const string &newStatus);

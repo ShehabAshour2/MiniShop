@@ -36,3 +36,12 @@ vector<T> Inventory<T>::findbytitle(string name)
     }
     return v;
 }
+
+
+template<class T>
+void Inventory<T>::display() {
+    for (auto &it : inventory) {
+        it.second.display();
+        cout<<'\n';
+    }
+}

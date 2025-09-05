@@ -25,6 +25,8 @@ public:
     T *findbyid(int id);
 
     vector<T> findbytitle(string name);
+
+    void display();
 };
 
 #endif

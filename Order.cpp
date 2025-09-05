@@ -1,10 +1,12 @@
 #include "Order.h"
 #include <iostream>
 
+#include "ShoppingCart.h"
+
 using namespace std;
 int Order::nextOrderId = 1;
 
-Order::Order(int custId, const vector<CartItem> &items, const string &orderDate)
+Order::Order(int custId, const ShoppingCart &items, const string &orderDate)
     : customerId(custId), purchasedItems(items), date(orderDate), status("Pending")
 {
     orderId = nextOrderId++;
@@ -20,6 +22,11 @@ void Order::updateStatus(const string &newStatus)
     status = newStatus;
 }
 
+ostream & ShoppingCart::operator<<(ostream &os, const ShoppingCart &sc) {
+    for (auto &item : sc.cartItems)os<<item<<" - ";
+    return os;
+}
+
 ostream &operator<<(ostream &os, const Order &o)
 {
     os << "Order ID: " << o.orderId
@@ -29,10 +36,7 @@ ostream &operator<<(ostream &os, const Order &o)
        << "\nTotal: " << o.totalAmount
        << "\nItems:\n";
 
-    for (const auto &item : o.purchasedItems)
-    {
-        os << " - " << item << endl;
-    }
+    os << o.purchasedItems << endl;
     return os;
 }
 
