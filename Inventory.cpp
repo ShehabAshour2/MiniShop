@@ -5,6 +5,12 @@
 #include <vector>
 using namespace std;
 
+template<class T>
+Inventory<T>::Inventory() {
+
+}
+
+
 template <class T>
 void Inventory<T>::additem(int id, T &product)
 {
@@ -20,7 +26,10 @@ void Inventory<T>::removeitem(int id)
 template <class T>
 T *Inventory<T>::findbyid(int id)
 {
-    return &inventory[id];
+    T* temp= &inventory[id];
+    if (temp == nullptr)
+        inventory.erase(id);
+    return temp;
 }
 
 template <class T>

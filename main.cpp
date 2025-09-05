@@ -24,7 +24,7 @@ using namespace std;
 
 // Forward declarations of functions to handle menu actions
 void customerMenu(Customer *currentCustomer);
-//void adminMenu(Admin *currentAdmin);
+void adminMenu(Admin *currentAdmin);
 void displayAllProducts();
 // In-memory databases
 vector<Admin> admins;
@@ -116,9 +116,10 @@ int main()
         { // Login as Admin
             system("cls");
             cout << "--- Admin Login ---" << endl;
-            cout << "Enter ID: ";
             int id;
+            cout << "Enter ID: ";
             cin >> id;
+            cin.ignore();
             cout << "Enter password: ";
             getline(cin, password);
 
@@ -137,7 +138,7 @@ int main()
             {
                 // Use the getname() method to access the admin's name
                 cout << "\nLogin successful! Welcome, " << foundAdmin->getname() << "." << endl;
-                //adminMenu(foundAdmin); // Go to the admin-specific menu
+                adminMenu(foundAdmin); // Go to the admin-specific menu
             }
             else
             {
@@ -200,12 +201,11 @@ void customerMenu(Customer *currentCustomer)
         system("cls"); // Clears the console
         cout << "Welcome, " << currentCustomer->getname() << "!" << endl;
         cout << "--- Customer Menu ---" << endl;
-        cout << "1. View all products" << endl;
-        cout << "2. Add product to cart" << endl;
-        cout << "3. View shopping cart" << endl;
-        cout << "4. Checkout" << endl;
-        cout << "5. View order history" << endl;
-        cout << "6. Log out" << endl;
+        cout << "1. Add product to cart" << endl;
+        cout << "2. View shopping cart" << endl;
+        cout << "3. Checkout" << endl;
+        cout << "4. View order history" << endl;
+        cout << "5. Log out" << endl;
         cout << "Enter your choice: ";
 
         while ((choice=getch()) && (choice<'1' || choice>'6') );
@@ -217,13 +217,6 @@ void customerMenu(Customer *currentCustomer)
         {
             system("cls");
             displayAllProducts();
-            cout << "\nPress Enter to continue...";
-            cin.get();
-            break;
-        }
-        case '2':
-        {
-            system("cls");
             int productId, quantity;
             cout << "Enter product ID to add to cart: ";
             cin >> productId;
@@ -255,7 +248,8 @@ void customerMenu(Customer *currentCustomer)
             cin.get();
             break;
         }
-        case '3':
+
+        case '2':
         {
             system("cls");
             cout << "--- Your Shopping Cart ---" << endl;
@@ -266,7 +260,7 @@ void customerMenu(Customer *currentCustomer)
             cin.get();
             break;
         }
-        case '4':
+        case '3':
         {
             system("cls");
             if (customerCart.calculateTotal() > 0)
@@ -291,7 +285,7 @@ void customerMenu(Customer *currentCustomer)
             cin.get();
             break;
         }
-        case '5':
+        case '4':
         {
             system("cls");
             currentCustomer->vieworders();
@@ -299,7 +293,7 @@ void customerMenu(Customer *currentCustomer)
             cin.get();
             break;
         }
-        case '6':
+        case '5':
         {
             // Log out
             cout << "\nLogging out. Goodbye!" << endl;
@@ -313,6 +307,161 @@ void customerMenu(Customer *currentCustomer)
             cout << "\nPress Enter to continue...";
             cin.get();
             break;
+        }
+        }
+    }
+}
+
+
+void adminMenu(Admin *currentAdmin)
+{
+    char choice;
+    while (true)
+    {
+        system("cls");
+        cout << "Welcome, " << currentAdmin->getname() << "!" << endl;
+        cout << "--- Admin Menu ---" << endl;
+        cout << "1. Add product" << endl;
+        cout << "2. Remove product" << endl;
+        cout << "3. Update stock (Physical products only)" << endl;
+        cout << "4. View all products" << endl;
+        cout << "5. Log out" << endl;
+        cout << "Enter your choice: ";
+
+        while ((choice = getch()) && (choice < '1' || choice > '5'))
+            ;
+        cout << choice << endl;
+
+        switch (choice)
+        {
+        case '1': // Add product
+        {
+            system("cls");
+            cout << "--- Add Product ---" << endl;
+            cout << "1. Physical Product" << endl;
+            cout << "2. Digital Product" << endl;
+            char type;
+            while ((type = getch()) && (type < '1' || type > '2'))
+                ;
+            cout << type << endl;
+
+            string title, description, category, format;
+            double price, weight, fileSize;
+            int stock;
+
+            cin.ignore();
+            system("cls");
+            cout << "Enter title: ";
+            getline(cin, title);
+            cout << "Enter description: ";
+            getline(cin, description);
+            cout << "Enter price: ";
+            cin >> price;
+            cout << "Enter category: ";
+            cin.ignore();
+            getline(cin, category);
+
+            if (type == '1')
+            {
+                cout << "Enter stock quantity: ";
+                cin >> stock;
+                cout << "Enter weight (kg): ";
+                cin >> weight;
+                PhysicalProduct newProduct(title, description, price, category, stock, weight);
+                physicalInventory.additem(newProduct.getId(), newProduct);
+                currentAdmin->addProduct(title);
+            }
+            else
+            {
+                cout << "Enter file size (MB): ";
+                cin >> fileSize;
+                cout << "Enter format (e.g. PDF, EXE): ";
+                cin.ignore();
+                getline(cin, format);
+                DigitalProduct newProduct(title, description, price, category, fileSize, format);
+                digitalInventory.additem(newProduct.getId(), newProduct);
+                currentAdmin->addProduct(title);
+            }
+
+            cout << "\nProduct added successfully!" << endl;
+            cout << "\nPress Enter to continue...";
+            cin.get();
+            break;
+        }
+
+        case '2': // Remove product
+        {
+            system("cls");
+            displayAllProducts();
+            int productId;
+            cout << "Enter product ID to remove: ";
+            cin >> productId;
+
+            if (physicalInventory.findbyid(productId))
+            {
+                physicalInventory.removeitem(productId);
+                currentAdmin->removeProduct("Physical product ID " + to_string(productId));
+            }
+            else if (digitalInventory.findbyid(productId))
+            {
+                digitalInventory.removeitem(productId);
+                currentAdmin->removeProduct("Digital product ID " + to_string(productId));
+            }
+            else
+            {
+                cout << "Product not found." << endl;
+            }
+
+            cout << "\nPress Enter to continue...";
+            cin.ignore();
+            cin.get();
+            break;
+        }
+
+        case '3': // Update stock
+        {
+            system("cls");
+            physicalInventory.display();
+            int productId, newStock;
+            cout << "Enter physical product ID: ";
+            cin >> productId;
+            cout << "Enter new stock quantity: ";
+            cin >> newStock;
+
+            PhysicalProduct *prod = physicalInventory.findbyid(productId);
+            if (prod != nullptr)
+            {
+                // simulate "updateStock" with Admin log
+                int difference = newStock; // overwrite logic
+                prod->increaseStock(difference);
+                currentAdmin->updateStock(prod->getTitle(), newStock);
+            }
+            else
+            {
+                cout << "Physical product not found." << endl;
+            }
+
+            cout << "\nPress Enter to continue...";
+            cin.ignore();
+            cin.get();
+            break;
+        }
+
+        case '4': // View all products
+        {
+            system("cls");
+            displayAllProducts();
+            cout << "\nPress Enter to continue...";
+            cin.get();
+            break;
+        }
+
+        case '5': // Log out
+        {
+            cout << "\nLogging out. Goodbye!" << endl;
+            cout << "\nPress Enter to continue...";
+            cin.get();
+            return;
         }
         }
     }
