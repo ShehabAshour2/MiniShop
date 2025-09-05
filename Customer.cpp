@@ -22,7 +22,7 @@ void Customer::checkout(string order)
 void Customer::vieworders()
 {
     cout << "The order history of " << name << " is:" << endl;
-    for (auto order : orderhistory)
+    for (auto& order : orderhistory)
     {
         cout << "- " << order << endl;
     }
@@ -39,4 +39,8 @@ void Customer::display(ostream &os)
 string Customer::gettype()
 {
     return "Customer";
+}
+
+string Customer::getemail() {
+    return email;
 }

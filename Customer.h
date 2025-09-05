@@ -21,6 +21,7 @@ public:
 
     void display(ostream &os) override;
     string gettype() override;
+    string getemail();
 };
 
 #endif

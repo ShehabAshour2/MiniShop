@@ -5,19 +5,13 @@
 #include <string>
 #include <numeric>
 #include <algorithm>
+#include "CartItem.h"
+#include "product.h"
+#include "digitalproduct.h"
+#include "physicalproduct.h"
 using namespace std;
-class Product;
 
-class CartItem
-{
-public:
-    Product *product;
-    int quantity;
 
-    CartItem(Product *p = nullptr, int q = 0) : product(p), quantity(q) {}
-
-    double subTotal() const;
-};
 
 class ShoppingCart
 {

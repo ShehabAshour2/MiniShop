@@ -24,5 +24,6 @@ public:
     friend ostream &operator<<(ostream &os, const Product &p);
     string getTitle() const { return title; }
     double getPrice() const { return price; }
+    int getId() { return id; }
 };
 #endif

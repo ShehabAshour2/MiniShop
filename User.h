@@ -20,6 +20,9 @@ public:
     virtual string gettype() = 0;
 
     bool authenticate(string &enteredPass);
+    string getname();
+
+    int getId();
 
     friend ostream &operator<<(ostream &os, User &u);
 };
