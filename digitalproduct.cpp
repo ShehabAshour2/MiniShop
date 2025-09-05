@@ -1,7 +1,10 @@
 #include "DigitalProduct.h"
 #include <vector>
 
-DigitalProduct::DigitalProduct(){}
+DigitalProduct::DigitalProduct() : Product("" , "" , -1 , "") {
+    fileSizeMB=-1;
+    format="";
+}
 
 DigitalProduct::DigitalProduct(const string &t, const string &d, double p, const string &c, double size, const string &f)
     : Product(t, d, p, c), fileSizeMB(size), format(f) {}

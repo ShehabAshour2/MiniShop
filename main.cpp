@@ -16,6 +16,7 @@
 #include "ShoppingCart.cpp"
 #include "CartItem.cpp"
 #include "Order.cpp"
+#include "Inventory.h"
 #include "Inventory.cpp"
 #include <numeric>
 
@@ -23,7 +24,7 @@ using namespace std;
 
 // Forward declarations of functions to handle menu actions
 void customerMenu(Customer *currentCustomer);
-void adminMenu(Admin *currentAdmin);
+//void adminMenu(Admin *currentAdmin);
 void displayAllProducts();
 // In-memory databases
 vector<Admin> admins;
@@ -136,7 +137,7 @@ int main()
             {
                 // Use the getname() method to access the admin's name
                 cout << "\nLogin successful! Welcome, " << foundAdmin->getname() << "." << endl;
-                adminMenu(foundAdmin); // Go to the admin-specific menu
+                //adminMenu(foundAdmin); // Go to the admin-specific menu
             }
             else
             {

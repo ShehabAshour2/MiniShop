@@ -1,6 +1,6 @@
 #include "PhysicalProduct.h"
 
-PhysicalProduct::PhysicalProduct() : Product("", "", "", "") {
+PhysicalProduct::PhysicalProduct() : Product("", "", -1 , "") {
     stockQuantity=-1;
     weight=-1;
 
